@@ -18,6 +18,7 @@ import shop.service.AddressService;
 import shop.service.OrderService;
 
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequiredArgsConstructor
@@ -29,7 +30,7 @@ public class CheckoutController {
     @PostMapping("/checkout")
     public String order(@ModelAttribute OrderDto orderDto, HttpSession session, RedirectAttributes redirectAttributes) {
         User user = (User) session.getAttribute("user");
-        Address address = (Address) session.getAttribute("selected_address");
+        Address address = Optional.ofNullable((Address) session.getAttribute("selected_address")).orElseGet(Address::new);
         Cart cart = (Cart) session.getAttribute("cart");
         Order order = orderService.createOrder(orderDto, user, address, cart);
         redirectAttributes.addFlashAttribute("order", order);

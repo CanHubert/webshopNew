@@ -3,6 +3,7 @@ package shop.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.springframework.context.annotation.Scope;
 
 import javax.validation.constraints.Size;
 

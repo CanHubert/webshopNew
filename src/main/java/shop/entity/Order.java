@@ -25,7 +25,7 @@ public class Order {
     @JoinColumn(name = "cart_id")
     private Cart cart;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST}, fetch = FetchType.EAGER)
     @JoinColumn(name = "address_id")
     private Address address;
 
