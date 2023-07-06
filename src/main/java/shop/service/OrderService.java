@@ -26,9 +26,9 @@ public class OrderService {
 
 
     //    @Transactional(propagation = Propagation.REQUIRES_NEW)
-    public Order createOrder(OrderDto orderDto, User user, Long addressId, Cart cart) {
+    public Order createOrder(OrderDto orderDto, User user, Address address, Cart cart) {
         Order order = new Order();
-        Address orderAddress = saveAddress(orderDto, addressId, user);
+        Address orderAddress = saveAddress(orderDto, address, user);
         order.setAddress(orderAddress);
         cart.setActive(false);
 
@@ -41,9 +41,11 @@ public class OrderService {
         return cartRepository.save(cart);
     }
 
-    private Address saveAddress(OrderDto orderDto, Long addressId, User user) {
-        Optional<Address> byId = addressRepository.findById(addressId);
-        Address address = byId.orElseGet(Address::new);
+    private Address saveAddress(OrderDto orderDto, Address address, User user) {
+
+//        Optional<Address> byId = address != null ? addressRepository.findById(address.getId()) : Optional.empty();
+//        Address address = byId.orElseGet(Address::new);
+        address = address != null ? address : new Address();
         Address addressToSave = Boolean.parseBoolean(orderDto.updateAddress()) ? address : new Address();
         addressToSave.setUser(user);
         addressToSave.setAddressName(orderDto.addressName());

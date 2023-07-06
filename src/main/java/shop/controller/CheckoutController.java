@@ -31,7 +31,7 @@ public class CheckoutController {
         User user = (User) session.getAttribute("user");
         Address address = (Address) session.getAttribute("selected_address");
         Cart cart = (Cart) session.getAttribute("cart");
-        Order order = orderService.createOrder(orderDto, user, address.getId(), cart);
+        Order order = orderService.createOrder(orderDto, user, address, cart);
         redirectAttributes.addFlashAttribute("order", order);
         return "redirect:/order/success";
     }
